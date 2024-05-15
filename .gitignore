@@ -5,6 +5,7 @@
 !.gitignore
 
 !*.lock
+!*.md
 !*.nix
 !*.zig
 !*.zon

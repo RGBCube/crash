@@ -6,8 +6,8 @@
   zig_0_12,
   optimize ? "ReleaseFast",
 
-  bash,
-  fallbackShell ? bash,
+  bashInteractive,
+  fallbackShell ? bashInteractive,
 }:
 
 stdenvNoCC.mkDerivation {

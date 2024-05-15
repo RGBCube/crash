@@ -28,10 +28,7 @@ Simply add this repository to your inputs like so:
 
 ```nix
 {
-  inputs.crash = {
-    url                    = "github:RGBCube/crash";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.crash.url = "github:RGBCube/crash";
 }
 ```
 

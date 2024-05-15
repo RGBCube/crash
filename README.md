@@ -16,6 +16,8 @@ however you can change this by overriding the `fallbackShell` call option).
 - To allow users to configure their own shells without superuser access (You can
   set the `SHELLS` variable to something like `.config/shell` and let users
   change that file).
+- To be able to hotswap between shells when using SSH. This is even more useful if multiple
+  people who use the same user account on a machine use different shells. See the "Tips & Tricks" section.
 - To have a fallback shell in case your primary one, which is your login shell,
   breaks and you don't want to get locked out (especially useful when using new
   unstable shells like Nushell).
@@ -86,13 +88,15 @@ module that does that:
 }
 ```
 
-And you can utilize it by doing:
+And you can utilize it by adding this to your `.ssh/config`:
 
 ```shell
-$ SHELLS="fish:nu:bash:dash" ssh user@host
+Host myvps
+    # ..snip..
+    SetEnv SHELLS=fish:nu:bash:dash
 ```
 
-This will launch you into fish, if that fails, into nu and so on...
+Then just SSH in like normal. This will launch you into fish, if that fails, into nu and so on...
 
 ## Common Misakes
 

@@ -6,14 +6,16 @@ Crash is a super lightweight shim that executes the shells that are seperated by
 in your `SHELLS` environment variable in order, halting execution if one exits
 sucessfully (with a 0 exit code).
 
-If you don't have anything in your `SHELLS` environment variable, Crash will
-use the fallback shell that is configured at compile time (by default, this is
-`bashInteractive` from nixpkgs, however you can change this by overriding the
-`fallbackShell` call option).
+If you don't have anything in your `SHELLS` environment variable or all the ones
+that did exist failed to launch, Crash will use the fallback shell that is
+configured at compile time (by default, this is `bashInteractive` from nixpkgs,
+however you can change this by overriding the `fallbackShell` call option).
 
 ## Why?
 
-- To allow users to configure their own shells without superuser access.
+- To allow users to configure their own shells without superuser access (You can
+  set the `SHELLS` variable to something like `.config/shell` and let users
+  change that file).
 - To have a fallback shell in case your primary one, which is your login shell,
   breaks and you don't want to get locked out (especially useful when using new
   unstable shells like Nushell).
@@ -91,6 +93,34 @@ $ SHELLS="fish:nu:bash:dash" ssh user@host
 ```
 
 This will launch you into fish, if that fails, into nu and so on...
+
+## Common Misakes
+
+### Using `~` in the `SHELLS` variable
+
+So, the way `SHELLS` is handled is like so:
+1. Split the variable into a list of shells using `:`.
+2. Searches PATH for the shell, invokes it if it can find it there.
+3. If it can't find the shell there, assumes the shell is a file.
+   If it is an absolute path, it directly invokes the executable, if
+   it isn'it, joins the path with the current working directory before executing.
+
+Did you notice something? Yup, it doesn't expand the tilde (`~`)!
+But no worries, you don't need it anyway as the PWD of your login shell
+(in this case, Crash) is always your home directory. So if you wanted to do
+
+```shell
+SHELLS=~/.config/shell # Won't work!
+```
+
+You can do:
+
+```shell
+SHELLS=.config/shell # WILL work!
+```
+
+Instead and it will work perfectly fine.
+
 
 ## Credits
 

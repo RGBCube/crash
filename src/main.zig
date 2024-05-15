@@ -16,8 +16,8 @@ pub fn main() noreturn {
 
     var argi = std.process.args();
     while (argi.next()) |arg| {
-        args[args.len] = arg;
         args.len += 1;
+        args[args.len - 1] = arg;
     }
 
     const shells = std.posix.getenv("SHELLS") orelse fallback(alloc);

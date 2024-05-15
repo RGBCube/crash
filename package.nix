@@ -1,10 +1,8 @@
 {
   lib,
   stdenvNoCC,
-  callPackage,
 
   zig_0_12,
-  optimize ? "ReleaseFast",
 
   bashInteractive,
   fallbackShell ? bashInteractive,
@@ -19,28 +17,15 @@ in stdenvNoCC.mkDerivation {
 
   src = ./.;
 
-  nativeBuildInputs = [ zig_0_12 ];
+  dontCheck = true;
 
-  dontConfigure = true;
-  dontInstall   = true;
+  nativeBuildInputs = [
+    zig_0_12.hook
+  ];
 
-  preBuild = ''
-    mkdir -p .cache
-    ln -s ${callPackage ./build.zig.zon.nix {}} .cache/p
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-
-    zig build install \
-      --cache-dir $(pwd)/zig-cache \
-      --global-cache-dir $(pwd)/.cache \
-      --prefix $out \
-      -Doptimize=${optimize} \
-      -Dfallback_shell=${fallbackShell'}
-
-    runHook postBuild
-  '';
+  zigBuildFlags = [
+    "-Dfallback_shell=${fallbackShell'}"
+  ];
 
   passthru.shellPath = "/bin/crash";
 

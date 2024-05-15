@@ -48,6 +48,12 @@ shell like so, in a NixOS module:
           # exits with an error, fish will be launched instead. And if fish fails, the
           # fallback shell, which is pkgs.bashInteractive will get run.
           environment.sessionVariables.SHELLS = "${lib.getExe pkgs.nushell}:${lib.getExe pkgs.fish}";
+
+          # This would also work, as Crash searches $PATH:
+          #
+          # environment.sessionVariables.SHELLS = "nu:fish";
+          #
+          # However, just setting an absolute path is pretty easy and better.
         })
 
         # Uncomment to make the fallback shell of crash pkgs.dash. Will require a recompilation!
@@ -61,6 +67,30 @@ shell like so, in a NixOS module:
   }
 }
 ```
+
+## Tips & Tricks
+
+You can control the default shell / program that will get launched
+by SSH using Crash. All you need to do it make OpenSSH accept the `SHELLS`
+environment variable and set it when SSH'ing in. Here is a NixOS
+module that does that:
+
+```nix
+{
+  services.openssh = {
+    enable = true;
+    settings.AcceptEnv = "SHELLS";
+  };
+}
+```
+
+And you can utilize it by doing:
+
+```shell
+$ SHELLS="fish:nu:bash:dash" ssh user@host
+```
+
+This will launch you into fish, if that fails, into nu and so on...
 
 ## Credits
 

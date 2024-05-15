@@ -8,9 +8,12 @@
 
   bashInteractive,
   fallbackShell ? bashInteractive,
-}:
-
-stdenvNoCC.mkDerivation {
+}: let
+  fallbackShell' = if lib.isDerivation fallbackShell then
+    "${fallbackShell}${fallbackShell.shellPath}"
+  else
+    fallbackShell;
+in stdenvNoCC.mkDerivation {
   name    = "crash";
   version = lib.head (lib.strings.match ''.*\.version = "([^"]*)".*'' (lib.readFile ./build.zig.zon));
 
@@ -34,8 +37,18 @@ stdenvNoCC.mkDerivation {
       --global-cache-dir $(pwd)/.cache \
       --prefix $out \
       -Doptimize=${optimize} \
-      -Dfallback_shell=${lib.getExe fallbackShell}
+      -Dfallback_shell=${fallbackShell'}
 
     runHook postBuild
   '';
+
+  passthru.shellPath = "/bin/crash";
+
+  meta = with lib; {
+    description = "A user configurable login shell wrapper";
+    homepage    = "https://github.com/RGBCube/crash";
+    license     = licenses.mit;
+    platforms   = platforms.linux;
+    maintainers = with maintainers; [ RGBCube ];
+  };
 }

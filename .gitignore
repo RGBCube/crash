@@ -1,0 +1,10 @@
+*
+
+!src/
+
+!.gitignore
+
+!*.lock
+!*.nix
+!*.zig
+!*.zon

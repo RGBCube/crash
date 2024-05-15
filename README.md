@@ -61,6 +61,13 @@ shell like so, in a NixOS module:
 }
 ```
 
+## Credits
+
+- [noshell](https://github.com/viperML/noshell): This was the primary source of
+  inspiration. I decided to create this project as noshell requires a file on disk
+  instead of an environment variable and my [feature request for fallback shells got
+  rejected](https://github.com/viperML/noshell/issues/6).
+
 ## License
 
 ```

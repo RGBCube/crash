@@ -14,8 +14,9 @@ use the fallback shell that is configured at compile time (by default, this is
 ## Why?
 
 - To allow users to configure their own shells without superuser access.
-- To have a fallback shell in case your primary one breaks (especially useful when
-  using new unstable shells like Nushell).
+- To have a fallback shell in case your primary one, which is your login shell,
+  breaks and you don't want to get locked out (especially useful when using new
+  unstable shells like Nushell).
 
 ## Installation
 

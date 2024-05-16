@@ -69,6 +69,25 @@ shell like so, in a NixOS module:
 }
 ```
 
+## Installation without Nix
+
+First, you have to compile the program (requires Zig 0.12.0):
+
+```shell
+zig build --release=safe -Dcpu=baseline -Dfallback_shell=/bin/<yourshell>
+```
+
+After that, the binary should be in `zig-out/bin/crash`. You can copy it to
+`/bin` like so:
+
+```shell
+cp zig-out/bin/crash /bin/
+```
+
+After that, you will need to edit PAM settings to set the `SHELLS` environment
+variable early on in the boot process. Consult your distros documentation on
+how to do this, as it may vary.
+
 ## Tips & Tricks
 
 You can control the default shell / program that will get launched

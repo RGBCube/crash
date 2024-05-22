@@ -114,7 +114,7 @@ Host myvps
 
 Then just SSH in like normal. This will launch you into fish, if that fails, into nu and so on...
 
-## Common Misakes
+## Common Mistakes
 
 ### Using `~` in the `SHELLS` variable
 

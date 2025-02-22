@@ -114,32 +114,32 @@ Host myvps
 
 Then just SSH in like normal. This will launch you into fish, if that fails, into nu and so on...
 
-## Common Mistakes
+<!-- ## Common Mistakes -->
 
-### Using `~` in the `SHELLS` variable
+<!-- ### Using `~` in the `SHELLS` variable -->
 
-So, the way `SHELLS` is handled is like so:
-1. Split the variable into a list of shells using `:`.
-2. Searches PATH for the shell, invokes it if it can find it there.
-3. If it can't find the shell there, assumes the shell is a file.
-   If it is an absolute path, it directly invokes the executable, if
-   it isn'it, joins the path with the current working directory before executing.
+<!-- So, the way `SHELLS` is handled is like so: -->
+<!-- 1. Split the variable into a list of shells using `:`. -->
+<!-- 2. Searches PATH for the shell, invokes it if it can find it there. -->
+<!-- 3. If it can't find the shell there, assumes the shell is a file. -->
+   <!-- If it is an absolute path, it directly invokes the executable, if -->
+   <!-- it isn'it, joins the path with the current working directory before executing. -->
 
-Did you notice something? Yup, it doesn't expand the tilde (`~`)!
-But no worries, you don't need it anyway as the PWD of your login shell
-(in this case, Crash) is always your home directory. So if you wanted to do
+<!-- Did you notice something? Yup, it doesn't expand the tilde (`~`)! -->
+<!-- But no worries, you don't need it anyway as the PWD of your login shell -->
+<!-- (in this case, Crash) is always your home directory. So if you wanted to do -->
 
-```shell
-SHELLS=~/.config/shell # Won't work!
-```
+<!-- ```shell -->
+<!-- SHELLS=~/.config/shell # Won't work! -->
+<!-- ``` -->
 
-You can do:
+<!-- You can do: -->
 
-```shell
-SHELLS=.config/shell # WILL work!
-```
+<!-- ```shell -->
+<!-- SHELLS=.config/shell # WILL work! -->
+<!-- ``` -->
 
-Instead and it will work perfectly fine.
+<!-- Instead and it will work perfectly fine. -->
 
 
 ## Credits

@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
 
-  zig_0_12,
+  zig,
 
   bashInteractive,
   fallbackShell ? bashInteractive,
@@ -20,7 +20,7 @@ in stdenvNoCC.mkDerivation {
   dontCheck = true;
 
   nativeBuildInputs = [
-    zig_0_12.hook
+    zig.hook
   ];
 
   zigBuildFlags = [
@@ -33,6 +33,7 @@ in stdenvNoCC.mkDerivation {
     description = "A user configurable login shell wrapper";
     homepage    = "https://github.com/RGBCube/crash";
     license     = licenses.mit;
+    mainProgram = "crash";
     platforms   = platforms.linux;
     maintainers = with maintainers; [ RGBCube ];
   };

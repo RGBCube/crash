@@ -6,12 +6,15 @@
     extra-trusted-public-keys = "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=";
   };
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/default";
+  };
 
-  outputs = { self, nixpkgs }: let
+  outputs = { self, nixpkgs, systems }: let
     inherit (nixpkgs) lib;
 
-    forEachSystem = lib.genAttrs [ "x86_64-linux" "aarch64-linux" "riscv64-linux" ];
+    forEachSystem = lib.genAttrs (import systems);
   in {
     devShell = forEachSystem (system: with nixpkgs.legacyPackages.${system}; mkShell {
       packages = [

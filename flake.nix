@@ -18,7 +18,7 @@
   in {
     devShell = forEachSystem (system: with nixpkgs.legacyPackages.${system}; mkShell {
       packages = [
-        zig_0_12
+        zig_0_14
         zls
         zon2nix
       ];

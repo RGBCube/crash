@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
 
-  zig,
+  zig_0_14,
 
   bashInteractive,
   fallbackShell ? bashInteractive,
@@ -20,7 +20,7 @@ in stdenvNoCC.mkDerivation {
   dontCheck = true;
 
   nativeBuildInputs = [
-    zig.hook
+    zig_0_14.hook
   ];
 
   zigBuildFlags = [
@@ -35,6 +35,5 @@ in stdenvNoCC.mkDerivation {
     license     = licenses.mit;
     mainProgram = "crash";
     platforms   = platforms.unix;
-    maintainers = with maintainers; [ RGBCube ];
   };
 }

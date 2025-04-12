@@ -1,10 +1,13 @@
 .{
-    .name = "crash",
+    .name = .crash,
     .version = "0.0.1",
+    .fingerprint = 0xd7e8f0df85300b08,
 
-    .minimum_zig_version = "0.12.0",
+    .minimum_zig_version = "0.14.0",
 
     .paths = .{
-        "",
+        "src/main.zig",
+        "build.zig",
+        "build.zig.zon",
     },
 }

@@ -34,7 +34,7 @@ in stdenvNoCC.mkDerivation {
     homepage    = "https://github.com/RGBCube/crash";
     license     = licenses.mit;
     mainProgram = "crash";
-    platforms   = platforms.linux;
+    platforms   = platforms.unix;
     maintainers = with maintainers; [ RGBCube ];
   };
 }

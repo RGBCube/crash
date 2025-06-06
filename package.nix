@@ -15,7 +15,7 @@ in stdenvNoCC.mkDerivation {
   name    = "crash";
   version = lib.head (lib.strings.match ''.*\.version = "([^"]*)".*'' (lib.readFile ./build.zig.zon));
 
-  src = ./.;
+  src = builtins.path { path = ./.; name = "source"; };
 
   dontCheck = true;
 

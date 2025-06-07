@@ -2,9 +2,9 @@
 
 A user-configurable login shell wrapper.
 
-Crash is a super lightweight shim that executes the shells that are seperated by `:`
-in your `SHELLS` environment variable in order, halting execution if one exits
-sucessfully (with a 0 exit code).
+Crash is a super lightweight shim that executes the shells that are seperated by
+`:` in your `SHELLS` environment variable in order, halting execution if one
+exits sucessfully (with a 0 exit code).
 
 If you don't have anything in your `SHELLS` environment variable or all the ones
 that did exist failed to launch, Crash will use the fallback shell that is
@@ -16,8 +16,9 @@ however you can change this by overriding the `fallbackShell` call option).
 - To allow users to configure their own shells without superuser access (You can
   set the `SHELLS` variable to something like `.config/shell` and let users
   change that file).
-- To be able to hotswap between shells when using SSH. This is even more useful if multiple
-  people who use the same user account on a machine use different shells. See the "Tips & Tricks" section.
+- To be able to hotswap between shells when using SSH. This is even more useful
+  if multiple people who use the same user account on a machine use different
+  shells. See the "Tips & Tricks" section.
 - To have a fallback shell in case your primary one, which is your login shell,
   breaks and you don't want to get locked out (especially useful when using new
   unstable shells like Nushell).
@@ -32,8 +33,8 @@ Simply add this repository to your inputs like so:
 }
 ```
 
-And then you can set the package as your default user
-shell like so, in a NixOS module:
+And then you can set the package as your default user shell like so, in a NixOS
+module:
 
 ```nix
 {
@@ -71,7 +72,7 @@ shell like so, in a NixOS module:
 
 ## Installation without Nix
 
-First, you have to compile the program (requires Zig 0.12.0):
+First, you have to compile the program (requires Zig 0.14.0):
 
 ```shell
 zig build --release=safe -Dcpu=baseline -Dfallback_shell=/bin/<yourshell>
@@ -85,15 +86,14 @@ cp zig-out/bin/crash /bin/
 ```
 
 After that, you will need to edit PAM settings to set the `SHELLS` environment
-variable early on in the boot process. Consult your distros documentation on
-how to do this, as it may vary.
+variable early on in the boot process. Consult your distros documentation on how
+to do this, as it may vary.
 
 ## Tips & Tricks
 
-You can control the default shell / program that will get launched
-by SSH using Crash. All you need to do it make OpenSSH accept the `SHELLS`
-environment variable and set it when SSH'ing in. Here is a NixOS
-module that does that:
+You can control the default shell / program that will get launched by SSH using
+Crash. All you need to do it make OpenSSH accept the `SHELLS` environment
+variable and set it when SSH'ing in. Here is a NixOS module that does that:
 
 ```nix
 {
@@ -112,7 +112,8 @@ Host myvps
     SetEnv SHELLS=fish:nu:bash:dash
 ```
 
-Then just SSH in like normal. This will launch you into fish, if that fails, into nu and so on...
+Then just SSH in like normal. This will launch you into fish, if that fails,
+into nu and so on...
 
 <!-- ## Common Mistakes -->
 
@@ -122,8 +123,8 @@ Then just SSH in like normal. This will launch you into fish, if that fails, int
 <!-- 1. Split the variable into a list of shells using `:`. -->
 <!-- 2. Searches PATH for the shell, invokes it if it can find it there. -->
 <!-- 3. If it can't find the shell there, assumes the shell is a file. -->
-   <!-- If it is an absolute path, it directly invokes the executable, if -->
-   <!-- it isn'it, joins the path with the current working directory before executing. -->
+<!-- If it is an absolute path, it directly invokes the executable, if -->
+<!-- it isn'it, joins the path with the current working directory before executing. -->
 
 <!-- Did you notice something? Yup, it doesn't expand the tilde (`~`)! -->
 <!-- But no worries, you don't need it anyway as the PWD of your login shell -->
@@ -141,12 +142,12 @@ Then just SSH in like normal. This will launch you into fish, if that fails, int
 
 <!-- Instead and it will work perfectly fine. -->
 
-
 ## Credits
 
 - [noshell](https://github.com/viperML/noshell): This was the primary source of
-  inspiration. I decided to create this project as noshell requires a file on disk
-  instead of an environment variable and my [feature request for fallback shells got
+  inspiration. I decided to create this project as noshell requires a file on
+  disk instead of an environment variable and my
+  [feature request for fallback shells got
   rejected](https://github.com/viperML/noshell/issues/6).
 
 ## License
